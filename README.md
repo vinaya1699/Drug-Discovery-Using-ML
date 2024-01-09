@@ -8,23 +8,23 @@ from chembl_webresource_client.new_client import new_client
 # target search for Dengue virus
 
 target = new_client.target
-# print(target)
+print(target)
 target_query = target.search("Dengue virus")
-# print(target_query)
+print(target_query)
 target_df = pd.DataFrame.from_dict(target_query)
 
-# print(target_df)
+print(target_df)
 
 target_df[(target_df['target_type']=='SINGLE PROTEIN') & (target_df['organism']=='Dengue virus')]
 
 selected_target = target_df.target_chembl_id[6]
-# print(selected_target)
+print(selected_target)
 
 activity = new_client.activity
 res = activity.filter(target_chembl_id=selected_target).filter(standard_type='IC50')
 
 df = pd.DataFrame.from_dict(res)
-# print(df.head())
+print(df.head())
 
 df.standard_type.unique()
 
@@ -34,13 +34,13 @@ df_clean = df[df['standard_value'].notna()]
 df_clean = df_clean[df_clean['canonical_smiles'].notna()]
 df_clean.drop_duplicates(['canonical_smiles'], inplace = True)
 
-# print(df_clean.shape)
+print(df_clean.shape)
 df_clean.head()
 
 selection = ['molecule_chembl_id','canonical_smiles','standard_value']
 df_activity = df_clean[selection]
 
-# print(df_activity.head())
+print(df_activity.head())
 
 def activity_classifier(sv):
 
@@ -53,7 +53,7 @@ def activity_classifier(sv):
 
 df_activity['class'] = df_activity['standard_value'].apply(activity_classifier)
 
-# print(df_activity.head())
+print(df_activity.head())
 
 df_activity.to_csv("bioactivity_dengue_preprocessed_data.csv", index=False)
 
@@ -67,7 +67,7 @@ from rdkit.Chem import Descriptors, Lipinski
 # calculate descriptors and lipinski values
 
 df_proc = pd.read_csv("bioactivity_dengue_preprocessed_data.csv")
-# print(df_proc)
+print(df_proc)
 
 df_proc['canonical_smiles_mol'] = df_proc['canonical_smiles'].apply(Chem.MolFromSmiles)
 df_proc['mol_wt'] = df_proc['canonical_smiles_mol'].apply(Descriptors.MolWt)
@@ -75,7 +75,7 @@ df_proc['mol_logp'] = df_proc['canonical_smiles_mol'].apply(Descriptors.MolLogP)
 df_proc['num_H_donors'] = df_proc['canonical_smiles_mol'].apply(Lipinski.NumHDonors)
 df_proc['num_H_acceptors'] = df_proc['canonical_smiles_mol'].apply(Lipinski.NumHAcceptors)
 
-# print(df_proc.head())
+print(df_proc.head())
 
 def norm(x):
     """
@@ -88,7 +88,7 @@ def norm(x):
 restricting the standard value by applying the norm function and log10
 
 df_proc['pIC50'] = np.log10(df_proc['standard_value'].apply(norm))
-# print(df_proc.head())
+print(df_proc.head())
 
 getting statistics of pIC50 values
 
@@ -97,7 +97,7 @@ df_proc['pIC50'].describe()
 dropping the intermediate class
 
 df2 = df_proc[df_proc['class'] != 'intermediate']
-# print(df2.head())
+print(df2.head())
 
 ######################################################################################################################################
 
@@ -181,9 +181,9 @@ sns.boxplot(x='class', y='pIC50', data=df2)
 plt.xlabel('Bioactivity class')
 plt.ylabel('pIC50 Value')
 
-# plt.savefig('plot_bioactivity_class.pdf')
+plt.savefig('plot_bioactivity_class.pdf')
 
-# plt.show()
+plt.show()
 
 # whitney test for pIC50
 whhitney_test('pIC50')
@@ -194,9 +194,9 @@ sns.boxplot(x='class', y='mol_wt', data=df2)
 plt.xlabel('Bioactivity class')
 plt.ylabel('Molecular Weight')
 
-# plt.savefig('plot_bioactivity_class.pdf')
+plt.savefig('plot_bioactivity_class.pdf')
 
-# plt.show()
+plt.show()
 
 # whitney test for pIC50
 whhitney_test('mol_wt')
@@ -246,13 +246,13 @@ whhitney_test('num_H_acceptors')
 
 df3 = df_proc.copy()
 
-# print(df3.head())
+print(df3.head())
 
 selection = ['canonical_smiles', 'molecule_chembl_id']
 df3_selection = df3[selection]
 df3_selection.to_csv('molecule.smi', sep='\t', index = False, header = False)
 
-# print(df3_selection.head())
+print(df3_selection.head())
 
 from padelpy import padeldescriptor
 
@@ -261,15 +261,15 @@ padeldescriptor(mol_dir='molecule.smi', d_file='descriptors.csv',
                 log=True, retainorder=True)
 
 df3_padel = pd.read_csv('descriptors.csv')
-# print(df3_padel)
+print(df3_padel)
 
 df3_padel = df3_padel.drop(columns='Name')
-# print(df3_padel.head())
+print(df3_padel.head())
 
 X_1 = df3_padel.copy()
 Y_1 = df3['pIC50']
 data_xy = pd.concat([X_1, Y_1], axis=1)
-# print(data_xy.head())
+print(data_xy.head())
 
 data_xy.to_csv('data with descriptors padel.csv', index=False)
 X = data_xy.drop('pIC50', axis = 1)
@@ -299,9 +299,9 @@ from lazypredict.Supervised import LazyRegressor
 clf = LazyRegressor(verbose=0, ignore_warnings=True, custom_metric=None)
 train, test = clf.fit(x_train, x_test, y_train, y_test)
 
-# print(train)
+print(train)
 
-# print(test)
+print(test)
 
 from sklearn.linear_model import SGDRegressor
 
@@ -311,7 +311,7 @@ sgd_model = SGDRegressor(max_iter=1000, tol=1e-3)
 sgd_model.fit(x_train, y_train)
 
 s1 = sgd_model.score(x_test, y_test)
-# print(s1)
+print(s1)
 
 y_pred = sgd_model.predict(x_test)
 
