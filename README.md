@@ -18,7 +18,12 @@ print(target)
 ![image](https://github.com/vinaya1699/Drug-Discovery-Using-ML/assets/110582335/1e845dd0-0553-425d-af3f-15835ac9dc90)
 
 target_query = target.search("Dengue virus")
+
 print(target_query)
+
+![image](https://github.com/vinaya1699/Drug-Discovery-Using-ML/assets/110582335/913e0272-1c2a-44d7-9b90-24d4cdadf596)
+
+
 target_df = pd.DataFrame.from_dict(target_query)
 
 print(target_df)
