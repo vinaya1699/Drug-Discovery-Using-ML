@@ -15,7 +15,8 @@ target = new_client.target
 
 print(target)
 
-![image](https://github.com/vinaya1699/Drug-Discovery-Using-ML/assets/110582335/1e845dd0-0553-425d-af3f-15835ac9dc90)
+![image](https://github.com/vinaya1699/Drug-Discovery-Using-ML/assets/110582335/65b62eb9-2adc-4bf9-ac3f-08663153ed8e)
+
 
 target_query = target.search("Dengue virus")
 
