@@ -28,85 +28,8 @@ target_df = pd.DataFrame.from_dict(target_query)
 
 print(target_df)
 
-                                      cross_references  \
-0                                                   []   
-1                                                   []   
-2                                                   []   
-3                                                   []   
-4                                                   []   
-..                                                 ...   
-205                                                 []   
-206  [{'xref_id': 'Q69422', 'xref_name': None, 'xre...   
-207                                                 []   
-208                                                 []   
-209                                                 []   
+![image](https://github.com/vinaya1699/Drug-Discovery-Using-ML/assets/110582335/a6c92aa3-4b50-4f4e-b297-2833073265f7)
 
-                                              organism  \
-0                                         Dengue virus   
-1                                       Dengue virus 1   
-2                                       Dengue virus 2   
-3                                       Dengue virus 3   
-4                                       Dengue virus 4   
-..                                                 ...   
-205  Human immunodeficiency virus type 1 (RF/HAT IS...   
-206                               Hepatitis GB virus B   
-207                                       Homo sapiens   
-208                                       Homo sapiens   
-209                                       Homo sapiens   
-
-                                             pref_name  score  \
-0                                         Dengue virus   24.0   
-1                                       Dengue virus 1   21.0   
-2                                       Dengue virus 2   21.0   
-3                                       Dengue virus 3   21.0   
-4                                  Dengue virus type 4   18.0   
-..                                                 ...    ...   
-205  Human immunodeficiency virus type 1 (RF/HAT IS...    4.0   
-206  Hepatitis GB virus B NS5B RNA-dependent RNA po...    4.0   
-207    VEGF-receptor 2 and tyrosine-protein kinase SRC    4.0   
-208                                Sharpin/RBCK1/RNF31    4.0   
-209                                       80S Ribosome    0.0   
-
-     species_group_flag target_chembl_id  \
-0                 False     CHEMBL613757   
-1                 False     CHEMBL613360   
-2                 False     CHEMBL613966   
-3                 False     CHEMBL612717   
-4                 False     CHEMBL613728   
-..                  ...              ...   
-205               False     CHEMBL613498   
-206               False       CHEMBL5981   
-207               False    CHEMBL2111336   
-208               False    CHEMBL4296109   
-209               False    CHEMBL3987582   
-
-                                     target_components  \
-0                                                   []   
-1                                                   []   
-2                                                   []   
-3                                                   []   
-4                                                   []   
-..                                                 ...   
-205                                                 []   
-206  [{'accession': 'Q69422', 'component_descriptio...   
-207  [{'accession': 'P12931', 'component_descriptio...   
-208  [{'accession': 'Q9H0F6', 'component_descriptio...   
-209  [{'accession': 'P08865', 'component_descriptio...   
-
-                      target_type  tax_id  
-0                        ORGANISM   12637  
-1                        ORGANISM   11053  
-2                        ORGANISM   11060  
-3                        ORGANISM   11069  
-4                        ORGANISM   11070  
-..                            ...     ...  
-205                      ORGANISM   11701  
-206                SINGLE PROTEIN   39113  
-207             SELECTIVITY GROUP    9606  
-208               PROTEIN COMPLEX    9606  
-209  PROTEIN NUCLEIC-ACID COMPLEX    9606  
-
-[210 rows x 9 columns]
 
 target_df[(target_df['target_type']=='SINGLE PROTEIN') & (target_df['organism']=='Dengue virus')]
 
