@@ -28,6 +28,9 @@ target_df = pd.DataFrame.from_dict(target_query)
 
 print(target_df)
 
+![image](https://github.com/vinaya1699/Drug-Discovery-Using-ML/assets/110582335/cf1c66dd-a479-4fb8-a9b6-2ef9604dee61)
+
+
 target_df[(target_df['target_type']=='SINGLE PROTEIN') & (target_df['organism']=='Dengue virus')]
 
 selected_target = target_df.target_chembl_id[6]
