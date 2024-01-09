@@ -13,6 +13,8 @@ from chembl_webresource_client.new_client import new_client
 
 target = new_client.target
 print(target)
+![image](https://github.com/vinaya1699/Drug-Discovery-Using-ML/assets/110582335/1e845dd0-0553-425d-af3f-15835ac9dc90)
+
 target_query = target.search("Dengue virus")
 print(target_query)
 target_df = pd.DataFrame.from_dict(target_query)
